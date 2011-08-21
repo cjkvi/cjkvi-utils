@@ -75,12 +75,14 @@
 
 (defvar kdp-zhuyin-search-regexp
   (concat "\\(\\(" kdp-zhuyin-voice-regexp "[ˊˇˋ]\\)\\|\\(˙?"
-          kdp-zhuyin-voice-regexp "\\)\\)"))
+          kdp-zhuyin-voice-regexp "\\)\\)")
+  "注音の一音節をテキストから検索する正規表現。")
 
 (defvar kdp-zhuyin-regexp
   (concat "^\\(˙\\)?\\(" kdp-zhuyin-consonants-regexp "\\)?\\("
           kdp-zhuyin-medials-regexp "\\)?\\("
-          kdp-zhuyin-finals-regexp "\\)?\\([ˊˇˋ]\\)?$"))
+          kdp-zhuyin-finals-regexp "\\)?\\([ˊˇˋ]\\)?$")
+  "与えられた注音を子音・介音・尾音・声調に分解する正規表現。")
 
 (defvar kdp-zhuyin-special
   '(("ㄧㄝ" "ie"   "ye"  )
@@ -101,6 +103,7 @@
     ("u" "ū" "ú" "ǔ" "ù")
     ("ü" "ǖ" "ǘ" "ǚ" "ǜ")))
 
+;;;###autoload
 (defun kdp-zhuyin-to-pinyin (zhuyin)
   (if (not (string-match kdp-zhuyin-regexp zhuyin))
       (error "Not proper zhuyin!"))
@@ -142,6 +145,7 @@
                (error "Not matching! %s syllable")))
          (error "Irregular Tone! %s" syllable))))))
 
+;;;###autoload
 (defun kdp-zhuyin-to-pinyin-region (from to)
   (interactive "r")
   (save-excursion
